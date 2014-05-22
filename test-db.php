@@ -26,5 +26,5 @@ from person where name like '%s' or alias like '%s' ", $name.'%', $name.'%');
 
 
 // $conn = get_db('127.0.0.1',  'sanguo', 'xfight', 'wgmmla');
-$conn1 = get_db('107.170.133.81', 'sanguo', 'xfight', 'wgmmla');
+$conn1 = get_db('localhost', 'sanguo', 'xfight', 'wgmmla');
 get_text($conn, '孙尚香');
