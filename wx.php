@@ -86,9 +86,9 @@ class MyWechat extends Wechat
                 $text = sprintf('%s(%s-%s)', $person['name'], $person['live_year'], $person['die_year']);
                 $text .= empty($person['style_name']) ? '' : '字['.$person['style_name']."]";
                 $text .= empty($person['native_place']) ? '' : '籍贯['.$person['native_place']."]";
-                $text .= empty($person['office']) ? '' : '官至['.$person['office']."]\r\n";
-                $text .= empty($person['history_dpt']) ? '' : "历史简介\r\n[".$person['history_dpt']."]\r\n";
-                $text .= empty($person['novel_dpt']) ? '' : "演义简介\r\n[".$person['novel_dpt']."]\r\n";
+                // $text .= empty($person['office']) ? '' : '官至['.$person['office']."]\r\n";
+                // $text .= empty($person['history_dpt']) ? '' : "历史简介\r\n[".$person['history_dpt']."]\r\n";
+                // $text .= empty($person['novel_dpt']) ? '' : "演义简介\r\n[".$person['novel_dpt']."]\r\n";
                 $this->responseText($text);
             }
         }
