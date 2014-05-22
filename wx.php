@@ -73,7 +73,7 @@ class MyWechat extends Wechat
         } else {
             // $this->responseText('Today is a good day');
             $name = $content;
-            $this->setDb('107.170.133.81',  'sanguo', 'xfight', 'wgmmla');
+            $this->setDb('107.170.133.81',  'sanguo', 'root', 'wgmmla');
             $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
           history_dpt, novel_dpt, assessment, office, live_year, die_year
           from person where name like '%s' or alias like '%s'  limit 1", $name . '%', $name . '%' );
