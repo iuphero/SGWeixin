@@ -83,7 +83,7 @@ class MyWechat extends Wechat
             }
             else {
                 $person = $results->fetch();
-                $text = sprintf('%s(%s-%s) 。'., $person['name'], $person['live_year'], $person['die_year']);
+                $text = sprintf('%s(%s-%s) 。', $person['name'], $person['live_year'], $person['die_year']);
                 $text .= empty($person['style_name']) ? '' : '字['.$person['style_name']."]。\r\n";
                 $text .= empty($person['native_place']) ? '' : '籍贯['.$person['native_place']."]";
                 // $text .= empty($person['office']) ? '' : '官至['.$person['office']."]\r\n";
