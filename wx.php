@@ -71,20 +71,20 @@ class MyWechat extends Wechat
             $this->responseText($text);
 
         } else {
-            $this->responseText('Today is a good day');
-          //   $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
-          // history_dpt, novel_dpt, assessment, office, live_year, die_year
-          // from person where name like '%s' or alias like '%s'  limit 1", $name . '%', $name . '%' );
-          //   $result = $this->conn->query($sql);
-          //   if (count($result) == 0) {
-          //       $this->responseText('Sorry,小真没有查询到你要搜索的人物');
-          //   }
-          //   else {
-          //       $person = $result[0];
-          //       $text = '%s(%s-%s)';
-          //       $text .= empty($person['style_name']) ? '' : '字['.$person['style_name'].']';
-          //       $this->responseText($text);
-          //   }
+            // $this->responseText('Today is a good day');
+            $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
+          history_dpt, novel_dpt, assessment, office, live_year, die_year
+          from person where name like '%s' or alias like '%s'  limit 1", $name . '%', $name . '%' );
+            $results = $this->conn->query($sql);
+            if ($results->rowCount() == 0) {
+                $this->responseText('Sorry,小真没有查询到你要搜索的人物');
+            }
+            else {
+                $person = $results->fetch();
+                $text = '%s(%s-%s)';
+                $text .= empty($person['style_name']) ? '' : '字['.$person['style_name'].']';
+                $this->responseText($text);
+            }
         }
 
     }
