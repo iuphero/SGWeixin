@@ -7,14 +7,18 @@
  */
 
 require ('lib/wechat.class.php');
-$wechat = new MyWechat('xfight10000', TRUE);
-$wechat->run();
+
 
 /**
  * 微信公众平台演示类
  */
 class MyWechat extends Wechat
 {
+
+    protected function setDb($host, $dbname, $user, $pass) {
+        $text = sprintf("mysql:host=%s;dbname=%s", $host, $dbname);
+        $this->conn = new PDO($text, $user, $pass, [PDO::MYSQL_ATTR_INIT_COMMAND => 'set names utf8']);
+    }
 
     /**
      * 用户关注时触发，回复「欢迎关注」
@@ -63,24 +67,26 @@ class MyWechat extends Wechat
         $content = $this->getRequest('content');
         if ($content == '1') {
              //随机发送一个人物
-
+            $text = 'hello';
+            $this->responseText($text);
 
         } else {
-
-            $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
-history_dpt, novel_dpt, assessment, office, live_year, die_year
-from person where name like '%s' or alias like '%s'  limit 1", $name . '%', $name . '%' );
-            $result = $this->conn->query($sql);
-            if (count($result) == 0) {
-                $this->responseText('Sorry,小真没有查询到你要搜索的人物');
-            }
-            else {
-                $person = $result[0]
-                $text = '%s(%s-%s)';
-                $text .= empty($person['style_name']) ? '' : '字['.$person['style_name'].']';
-            }
+            $this->responseText('Today is a good day');
+          //   $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
+          // history_dpt, novel_dpt, assessment, office, live_year, die_year
+          // from person where name like '%s' or alias like '%s'  limit 1", $name . '%', $name . '%' );
+          //   $result = $this->conn->query($sql);
+          //   if (count($result) == 0) {
+          //       $this->responseText('Sorry,小真没有查询到你要搜索的人物');
+          //   }
+          //   else {
+          //       $person = $result[0];
+          //       $text = '%s(%s-%s)';
+          //       $text .= empty($person['style_name']) ? '' : '字['.$person['style_name'].']';
+          //       $this->responseText($text);
+          //   }
         }
-        $this->responseText('收到了文字消息：' . $this->getRequest('content'));
+
     }
 
     /**
@@ -142,5 +148,9 @@ from person where name like '%s' or alias like '%s'  limit 1", $name . '%', $nam
     protected function onUnknown() {
         $this->responseText('收到了未知类型消息：' . $this->getRequest('msgtype'));
     }
+
+
 }
 
+$wechat = new MyWechat('xfight10000', TRUE);
+$wechat->run();
