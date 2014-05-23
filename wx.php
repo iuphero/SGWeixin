@@ -72,7 +72,7 @@ class MyWechat extends Wechat
      */
     protected function onUnsubscribe() {
 
-       $this->responseText("「悄悄的我走了，正如我悄悄的来；我挥一挥衣袖，不带走一片云彩。」\r\n请问您有什么不满意的地方，可加微信号xfight10000直接反馈，小真会做得更好～");
+       // $this->responseText("「悄悄的我走了，正如我悄悄的来；我挥一挥衣袖，不带走一片云彩。」\r\n请问您有什么不满意的地方，可加微信号xfight10000直接反馈，小真会做得更好～");
 
     }
 
@@ -127,7 +127,7 @@ ORDER BY t1.id ASC LIMIT 1';
               from person where name like '%s' or alias like '%s'   or style_name = '%s' limit 1", $name . '%', $name . '%', $name );
                 $results = $this->conn->query($sql);
                 if ($results->rowCount() == 0) {
-                    $this->responseText("Sorry,小真没有查询到你要搜索的人物,请输入正确的人名。\r\n回复１可以随机获得一个人物介绍。");
+                    $this->responseText("Sorry,小真没有查询到你要搜索的人物,请输入正确的人名。\r\n".$this->help_text);
                 }
                 else {
                     $person = $results->fetch();
