@@ -14,6 +14,14 @@ require ('lib/wechat.class.php');
  */
 class MyWechat extends Wechat
 {
+    public　function __construct($token, $debug = FALSE) {
+        parent::__construct($token, $debug);
+        $this->basic_text = "欢迎关注「真三国志」，小真志在提供最给力的三国人物查询～\r\n";
+        $this->help_text = "回复１，即可随机获得一个三国人物介绍。\r\n
+        回复２，随机获得一个三国女性人物介绍。\r\n
+        回复０，查看帮助信息。\r\n
+        回复一个人名（如'赵云'）或表字(如'子龙')，获取对应的三国人物。";
+    }
 
     protected function setDb($host, $dbname, $user, $pass) {
         $text = sprintf("mysql:host=%s;dbname=%s", $host, $dbname);
@@ -45,11 +53,7 @@ class MyWechat extends Wechat
      * @return void
      */
     protected function onSubscribe() {
-        $basic_text = "欢迎关注「真三国志」，小真志在提供最给力的三国人物查询～\r\n";
-        $help_text = "回复１，即可随机获得一个三国人物介绍。\r\n
-        回复２，随机获得一个三国女性人物介绍。\r\n
-        回复一个人名，获取对应的三国人物。";
-        $this->responseText($basic_text. $help_text);
+        $this->responseText($this->basic_text. $this->$help_text);
     }
 
     /**
@@ -110,6 +114,10 @@ ORDER BY t1.id ASC LIMIT 1';
                 $results = $this->conn->query($sql);
                 $person = $results->fetch();
                 $this->sendPerson($person);
+                break;
+
+            case '0'://获取帮助信息
+                $this->responseText($this->help_text);
                 break;
 
             default:
