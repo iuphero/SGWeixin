@@ -26,9 +26,14 @@ class MyWechat extends Wechat
         $text .= empty($person['native_place']) ? '' : '籍贯：'.$person['native_place']."。\r\n";
         $text .= empty($person['office']) ? '' : '官至：'.$person['office'];
         $text .="\r\n";
-        $text .= empty($person['history_dpt']) ? '': "历史简介:\r\n".$person['history_dpt']."\r\n";
-        // $text .= empty($person['history_dpt']) ? ''  :  "历史简介:\r\n".$person['history_dpt']."\r\n";
-        $text .= empty($person['novel_dpt']) ? '' : "演义简介：\r\n[".$person['novel_dpt']."]\r\n";
+        $has_history = !empty($person['history_dpt']);
+        $has_novel = !empty($person['novel_dpt']);
+        if($has_history) {
+            $text  .=  "历史简介：\r\n" . $person['history_dpt']. "\r\n";
+        }
+        else if($has_novel){
+            $text  .=  "演义简介：\r\n[" . $person['novel_dpt']. "\r\n";
+        }
         $skillText = sprintf("假想能力：\r\n武力%s, 智力%s, 统率%s, 政治%s, 魅力%s", $person['wl'], $person['zl'], $person['ts'], $person['zz'], $person['ml']);
         $text .= $skillText;
         $this->responseText($text);
