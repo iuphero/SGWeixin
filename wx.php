@@ -21,14 +21,15 @@ class MyWechat extends Wechat
     }
 
     protected function sendPerson($person) {
-        $text = sprintf('%s(%s-%s) ，', $person['name'], $person['live_year'], $person['die_year']);
-        $text .= empty($person['style_name']) ? '' : '字：['.$person['style_name']."]。\r\n";
+        $text = sprintf('%s(%s-%s)   ', $person['name'], $person['live_year'], $person['die_year']);
+        $text .= empty($person['style_name']) ? '' : '字：'.$person['style_name']."。\r\n";
         $text .= empty($person['native_place']) ? '' : '籍贯：'.$person['native_place']."。\r\n";
-        $text .= empty($person['office']) ? '' : '官至：'.$person['office']."。\r\n";
+        $text .= empty($person['office']) ? '' : '官至：'.$person['office'];
+        $text .="。\r\n";
         $text .= empty($person['history_dpt']) ? '': "历史简介:\r\n".$person['history_dpt']."\r\n";
         // $text .= empty($person['history_dpt']) ? ''  :  "历史简介:\r\n".$person['history_dpt']."\r\n";
         $text .= empty($person['novel_dpt']) ? '' : "演义简介：\r\n[".$person['novel_dpt']."]\r\n";
-        $skillText = sprintf('假想能力：\r\n武力%s, 智力%s, 统率%s, 政治%s, 魅力%s', $person['wl'], $person['zl'], $person['ts'], $person['zz'], $person['ml']);
+        $skillText = sprintf("假想能力：\r\n武力%s, 智力%s, 统率%s, 政治%s, 魅力%s", $person['wl'], $person['zl'], $person['ts'], $person['zz'], $person['ml']);
         $text .= $skillText;
         $this->responseText($text);
     }
@@ -92,7 +93,7 @@ ORDER BY t1.id ASC LIMIT 1';
             $name = $content;
             $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
           history_dpt, novel_dpt, assessment, office, live_year, die_year
-          from person where name = '%s' or alias = '%s'  limit 1", $name . '%', $name . '%' );
+          from person where name like '%s' or alias like '%s'  limit 1", $name . '%', $name . '%' );
             $results = $this->conn->query($sql);
             if ($results->rowCount() == 0) {
                 $this->responseText("Sorry,小真没有查询到你要搜索的人物,请输入正确的人名。\r\n回复１可以随机获得一个人物介绍。");
