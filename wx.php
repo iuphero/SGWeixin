@@ -21,8 +21,8 @@ class MyWechat extends Wechat
     }
 
     protected function sendPerson($person) {
-        $text = sprintf('%s(%s-%s)   ', $person['name'], $person['live_year'], $person['die_year']);
-        $text .= empty($person['style_name']) ? '' : '字：'.$person['style_name']."。\r\n";
+        $text = sprintf('%s(%s-%s) ', $person['name'], $person['live_year'], $person['die_year']);
+        $text .= empty($person['style_name']) ? '' : ' ，字：'.$person['style_name']."。\r\n";
         $text .= empty($person['native_place']) ? '' : '籍贯：'.$person['native_place']."。\r\n";
         $text .= empty($person['office']) ? '' : '官至：'.$person['office'];
         $text .="。\r\n";
@@ -39,7 +39,7 @@ class MyWechat extends Wechat
      * @return void
      */
     protected function onSubscribe() {
-        $this->responseText('欢迎关注');
+        $this->responseText("欢迎关注「真三国志」，小真志在提供最给力的三国人物查询～\r\n回复１，即可随机获得一个三国人物介绍。\r\n回复一个人名，获取对应的三国人物。");
     }
 
     /**
@@ -58,7 +58,7 @@ class MyWechat extends Wechat
      */
     protected function onUnsubscribe() {
 
-        // 「悄悄的我走了，正如我悄悄的来；我挥一挥衣袖，不带走一片云彩。」
+       $this->responseText("「悄悄的我走了，正如我悄悄的来；我挥一挥衣袖，不带走一片云彩。」\r\n请问您有什么不满意的地方，可加微信号xfight10000直接反馈，小真会做得更好～");
 
     }
 
@@ -112,9 +112,9 @@ ORDER BY t1.id ASC LIMIT 1';
      * @return void
      */
     protected function onImage() {
-        $items = array(new NewsResponseItem('标题一', '描述一', $this->getRequest('picurl'), $this->getRequest('picurl')), new NewsResponseItem('标题二', '描述二', $this->getRequest('picurl'), $this->getRequest('picurl')),);
+        // $items = array(new NewsResponseItem('标题一', '描述一', $this->getRequest('picurl'), $this->getRequest('picurl')), new NewsResponseItem('标题二', '描述二', $this->getRequest('picurl'), $this->getRequest('picurl')),);
 
-        $this->responseNews($items);
+        // $this->responseNews($items);
     }
 
     /**
@@ -123,11 +123,11 @@ ORDER BY t1.id ASC LIMIT 1';
      * @return void
      */
     protected function onLocation() {
-        $num = 1 / 0;
+        // $num = 1 / 0;
 
-        // 故意触发错误，用于演示调试功能
+        // // 故意触发错误，用于演示调试功能
 
-        $this->responseText('收到了位置消息：' . $this->getRequest('location_x') . ',' . $this->getRequest('location_y'));
+        // $this->responseText('收到了位置消息：' . $this->getRequest('location_x') . ',' . $this->getRequest('location_y'));
     }
 
     /**
@@ -136,7 +136,7 @@ ORDER BY t1.id ASC LIMIT 1';
      * @return void
      */
     protected function onLink() {
-        $this->responseText('收到了链接：' . $this->getRequest('url'));
+        // $this->responseText('收到了链接：' . $this->getRequest('url'));
     }
 
     /**
@@ -145,7 +145,7 @@ ORDER BY t1.id ASC LIMIT 1';
      * @return void
      */
     protected function onVoice() {
-        $this->responseText('收到了语音消息,识别结果为：' . $this->getRequest('Recognition'));
+        // $this->responseText('收到了语音消息,识别结果为：' . $this->getRequest('Recognition'));
     }
 
     /**
@@ -154,7 +154,7 @@ ORDER BY t1.id ASC LIMIT 1';
      * @return void
      */
     protected function onClick() {
-        $this->responseText('你点击了菜单：' . $this->getRequest('EventKey'));
+        // $this->responseText('你点击了菜单：' . $this->getRequest('EventKey'));
     }
 
     /**
