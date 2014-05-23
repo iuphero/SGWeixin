@@ -22,10 +22,10 @@ class MyWechat extends Wechat
 
     protected function sendPerson($person) {
         $text = sprintf('%s(%s-%s) ', $person['name'], $person['live_year'], $person['die_year']);
-        $text .= empty($person['style_name']) ? '' : '   字'.$person['style_name']."。\r\n";
+        $text .= empty($person['style_name']) ? '' : '   字'.$person['style_name'];
+        $text.= "\r\n";
         $text .= empty($person['native_place']) ? '' : '籍贯：'.$person['native_place']."。\r\n";
-        $text .= empty($person['office']) ? '' : '官至：'.$person['office'];
-        $text .="\r\n";
+        $text .= empty($person['office']) ? "\r\n" : $person['office']."\r\n";
         $has_history = !empty($person['history_dpt']);
         $has_novel = !empty($person['novel_dpt']);
         if($has_history) {
@@ -38,6 +38,8 @@ class MyWechat extends Wechat
         $text .= $skillText;
         $this->responseText($text);
     }
+
+
     /**
      * 用户关注时触发，回复「欢迎关注」
      *
