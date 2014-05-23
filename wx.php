@@ -124,7 +124,7 @@ ORDER BY t1.id ASC LIMIT 1';
                 $name = $content;
                 $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
               history_dpt, novel_dpt, assessment, office, live_year, die_year
-              from person where name like '%s' or alias like '%s'  limit 1 or style_name = '%s' ", $name . '%', $name . '%', $name );
+              from person where name like '%s' or alias like '%s'   or style_name = '%s' limit 1", $name . '%', $name . '%', $name );
                 $results = $this->conn->query($sql);
                 if ($results->rowCount() == 0) {
                     $this->responseText("Sorry,小真没有查询到你要搜索的人物,请输入正确的人名。\r\n回复１可以随机获得一个人物介绍。");
