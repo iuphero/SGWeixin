@@ -116,9 +116,9 @@ ORDER BY t1.id ASC LIMIT 1';
                 $this->sendPerson($person);
                 break;
 
-            // case '0'://获取帮助信息
-            //     $this->responseText($this->help_text);
-            //     break;
+            case '0'://获取帮助信息
+                $this->responseText($this->help_text);
+                break;
 
             default:
                 $name = $content;
