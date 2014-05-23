@@ -87,10 +87,10 @@ class MyWechat extends Wechat
                 $text .= empty($person['style_name']) ? '' : '字：['.$person['style_name']."]。\r\n";
                 $text .= empty($person['native_place']) ? '' : '籍贯：'.$person['native_place']."。\r\n";
                 $text .= empty($person['office']) ? '' : '官至：'.$person['office']."。\r\n";
-                $text .= "历史简介:\r\n".$person['history_dpt']."\r\n";
+                $text .= empty($person['history_dpt']) ? '': "历史简介:\r\n".$person['history_dpt']."\r\n";
                 // $text .= empty($person['history_dpt']) ? ''  :  "历史简介:\r\n".$person['history_dpt']."\r\n";
                 $text .= empty($person['novel_dpt']) ? '' : "演义简介：\r\n[".$person['novel_dpt']."]\r\n";
-                $skillText = sprint('人物假想能力值：武力%s, 智力%s, 统率%s, 政治%s, 魅力%s', $person['wl'], $person['zl'], $person['ts'], $person['zz'], $person['ml']);
+                $skillText = sprintf('假想能力：武力%s, 智力%s, 统率%s, 政治%s, 魅力%s', $person['wl'], $person['zl'], $person['ts'], $person['zz'], $person['ml']);
                 $text .= $skillText;
                 $this->responseText($text);
             }
