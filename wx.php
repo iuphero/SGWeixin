@@ -17,9 +17,9 @@ class MyWechat extends Wechat
     public function __construct($token, $debug = FALSE) {
         parent::__construct($token, $debug);
         $this->basic_text = "欢迎关注「真三国志」，小真志在提供最给力的三国人物查询～\r\n";
-        $this->help_text = "回复１，即可随机获得一个三国人物介绍。\r\n
+        $this->help_text = "回复０，查看帮助信息。\r\n
+        回复１，随机获得一个三国人物介绍。\r\n
         回复２，随机获得一个三国女性人物介绍。\r\n
-        回复０，查看帮助信息。\r\n
         回复一个人名（如'赵云'）或表字(如'子龙')，获取对应的三国人物。";
     }
 
