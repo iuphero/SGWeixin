@@ -76,7 +76,8 @@ class MyWechat extends Wechat
      * @return void
      */
     protected function onText() {
-        $content = $this->getRequest('content');
+        $content = trim($this->getRequest('content'));
+        $this->setDb('127.0.0.1',  'sanguo', 'root', 'wgmmla');
         if ($content == '1') {
              //随机发送一个人物
              $sql = 'SELECT name, style_name, sex, ts, wl, zl, zz, ml, native_place,
@@ -88,15 +89,13 @@ ORDER BY t1.id ASC LIMIT 1';
             $person = $results->fetch();
             $this->sendPerson($person);
         } else {
-            // $this->responseText('Today is a good day');
             $name = $content;
-            $this->setDb('127.0.0.1',  'sanguo', 'root', 'wgmmla');
             $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
           history_dpt, novel_dpt, assessment, office, live_year, die_year
           from person where name = '%s' or alias = '%s'  limit 1", $name . '%', $name . '%' );
             $results = $this->conn->query($sql);
             if ($results->rowCount() == 0) {
-                $this->responseText('Sorry,小真没有查询到你要搜索的人物,请输入正确的人名。\r\n回复１可以随机获得一个人物介绍。');
+                $this->responseText("Sorry,小真没有查询到你要搜索的人物,请输入正确的人名。\r\n回复１可以随机获得一个人物介绍。");
             }
             else {
                 $person = $results->fetch();
