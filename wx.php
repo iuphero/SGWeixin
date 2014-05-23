@@ -14,7 +14,7 @@ require ('lib/wechat.class.php');
  */
 class MyWechat extends Wechat
 {
-    public　function __construct($token, $debug = FALSE) {
+    public function __construct($token, $debug = FALSE) {
         parent::__construct($token, $debug);
         $this->basic_text = "欢迎关注「真三国志」，小真志在提供最给力的三国人物查询～\r\n";
         $this->help_text = "回复１，即可随机获得一个三国人物介绍。\r\n
@@ -82,7 +82,7 @@ class MyWechat extends Wechat
      * @return void
      */
     protected function onEventLocation() {
-        $this->responseText('收到了位置推送：' . $this->getRequest('Latitude') . ',' . $this->getRequest('Longitude'));
+        // $this->responseText('收到了位置推送：' . $this->getRequest('Latitude') . ',' . $this->getRequest('Longitude'));
     }
 
     /**
@@ -105,20 +105,20 @@ ORDER BY t1.id ASC LIMIT 1';
                 $this->sendPerson($person);
                 break;
 
-            case '2'://随机发送一个女性人物
-                $sql = 'SELECT name, style_name, sex, ts, wl, zl, zz, ml, native_place,
-          history_dpt, novel_dpt, assessment, office, live_year, die_year
-FROM `person` AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(id) FROM `person`)) AS id) AS t2
-WHERE t1.id >= t2.id and (t1.history_dpt is not null or t1.novel_dpt is not null) and t1.sex = 2
-ORDER BY t1.id ASC LIMIT 1';
-                $results = $this->conn->query($sql);
-                $person = $results->fetch();
-                $this->sendPerson($person);
-                break;
+//             case '2'://随机发送一个女性人物
+//                 $sql = 'SELECT name, style_name, sex, ts, wl, zl, zz, ml, native_place,
+//           history_dpt, novel_dpt, assessment, office, live_year, die_year
+// FROM `person` AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(id) FROM `person`)) AS id) AS t2
+// WHERE t1.id >= t2.id and (t1.history_dpt is not null or t1.novel_dpt is not null) and t1.sex = 2
+// ORDER BY t1.id ASC LIMIT 1';
+//                 $results = $this->conn->query($sql);
+//                 $person = $results->fetch();
+//                 $this->sendPerson($person);
+//                 break;
 
-            case '0'://获取帮助信息
-                $this->responseText($this->help_text);
-                break;
+            // case '0'://获取帮助信息
+            //     $this->responseText($this->help_text);
+            //     break;
 
             default:
                 $name = $content;
@@ -133,6 +133,7 @@ ORDER BY t1.id ASC LIMIT 1';
                     $person = $results->fetch();
                     $this->sendPerson($person);
                 }
+                break;
         }
 
 
