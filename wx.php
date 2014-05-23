@@ -53,7 +53,7 @@ class MyWechat extends Wechat
      * @return void
      */
     protected function onSubscribe() {
-        $this->responseText($this->basic_text. $this->$help_text);
+        $this->responseText($this->basic_text. $this->help_text);
     }
 
     /**
