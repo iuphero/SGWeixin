@@ -45,7 +45,11 @@ class MyWechat extends Wechat
      * @return void
      */
     protected function onSubscribe() {
-        $this->responseText("欢迎关注「真三国志」，小真志在提供最给力的三国人物查询～\r\n回复１，即可随机获得一个三国人物介绍。\r\n回复一个人名，获取对应的三国人物。");
+        $basic_text = "欢迎关注「真三国志」，小真志在提供最给力的三国人物查询～\r\n";
+        $help_text = "回复１，即可随机获得一个三国人物介绍。\r\n
+        回复２，随机获得一个三国女性人物介绍。\r\n
+        回复一个人名，获取对应的三国人物。";
+        $this->responseText($basic_text. $help_text);
     }
 
     /**
@@ -112,7 +116,7 @@ ORDER BY t1.id ASC LIMIT 1';
                 $name = $content;
                 $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
               history_dpt, novel_dpt, assessment, office, live_year, die_year
-              from person where name like '%s' or alias like '%s'  limit 1", $name . '%', $name . '%' );
+              from person where name like '%s' or alias like '%s'  limit 1 or style_name = '%s' ", $name . '%', $name . '%', $name );
                 $results = $this->conn->query($sql);
                 if ($results->rowCount() == 0) {
                     $this->responseText("Sorry,小真没有查询到你要搜索的人物,请输入正确的人名。\r\n回复１可以随机获得一个人物介绍。");
