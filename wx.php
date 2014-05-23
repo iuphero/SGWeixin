@@ -85,30 +85,45 @@ class MyWechat extends Wechat
     protected function onText() {
         $content = trim($this->getRequest('content'));
         $this->setDb('127.0.0.1',  'sanguo', 'root', 'wgmmla');
-        if ($content == '1') {
-             //随机发送一个人物
-             $sql = 'SELECT name, style_name, sex, ts, wl, zl, zz, ml, native_place,
+        switch($content) {
+            case '1'://随机发送一个人物
+                $sql = 'SELECT name, style_name, sex, ts, wl, zl, zz, ml, native_place,
           history_dpt, novel_dpt, assessment, office, live_year, die_year
 FROM `person` AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(id) FROM `person`)) AS id) AS t2
 WHERE t1.id >= t2.id and (t1.history_dpt is not null or t1.novel_dpt is not null)
 ORDER BY t1.id ASC LIMIT 1';
-            $results = $this->conn->query($sql);
-            $person = $results->fetch();
-            $this->sendPerson($person);
-        } else {
-            $name = $content;
-            $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
-          history_dpt, novel_dpt, assessment, office, live_year, die_year
-          from person where name like '%s' or alias like '%s'  limit 1", $name . '%', $name . '%' );
-            $results = $this->conn->query($sql);
-            if ($results->rowCount() == 0) {
-                $this->responseText("Sorry,小真没有查询到你要搜索的人物,请输入正确的人名。\r\n回复１可以随机获得一个人物介绍。");
-            }
-            else {
+                $results = $this->conn->query($sql);
                 $person = $results->fetch();
                 $this->sendPerson($person);
-            }
+                break;
+
+            case '2'://随机发送一个女性人物
+                $sql = 'SELECT name, style_name, sex, ts, wl, zl, zz, ml, native_place,
+          history_dpt, novel_dpt, assessment, office, live_year, die_year
+FROM `person` AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(id) FROM `person`)) AS id) AS t2
+WHERE t1.id >= t2.id and (t1.history_dpt is not null or t1.novel_dpt is not null) and t1.sex = 2
+ORDER BY t1.id ASC LIMIT 1';
+                $results = $this->conn->query($sql);
+                $person = $results->fetch();
+                $this->sendPerson($person);
+                break;
+
+            default:
+                $name = $content;
+                $sql = sprintf("select name, style_name, sex, ts, wl, zl, zz, ml, native_place,
+              history_dpt, novel_dpt, assessment, office, live_year, die_year
+              from person where name like '%s' or alias like '%s'  limit 1", $name . '%', $name . '%' );
+                $results = $this->conn->query($sql);
+                if ($results->rowCount() == 0) {
+                    $this->responseText("Sorry,小真没有查询到你要搜索的人物,请输入正确的人名。\r\n回复１可以随机获得一个人物介绍。");
+                }
+                else {
+                    $person = $results->fetch();
+                    $this->sendPerson($person);
+                }
         }
+
+
 
     }
 
