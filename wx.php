@@ -1,10 +1,5 @@
 <?php
 
-/**
- * 微信公众平台 PHP SDK 示例文件
- *
- * @author NetPuter <netputer@gmail.com>
- */
 
 require ('lib/wechat.class.php');
 

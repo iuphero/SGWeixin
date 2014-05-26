@@ -1,9 +1,4 @@
 <?php
-/**
- * 微信公众平台 PHP SDK
- *
- * @author NetPuter <netputer@gmail.com>
- */
 
   /**
    * 微信公众平台处理类
